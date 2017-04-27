@@ -22,11 +22,11 @@ export default Ember.Object.create({
 
   sentence() {
     let usernames = this.state.usernames
-    switch(usernames.length) {
-      case 1:  return `${usernames[0]} reacted with :${this.state.emoji}:`
-      case 2:  return `${usernames[0]} and ${usernames[1]} reacted with :${this.state.emoji}:`
-      default: return `${usernames[0]}, ${usernames[1]}, and ${usernames.length - 2} others reacted with :${this.state.emoji}:`
-    }
+    let string = ""
+    usernames.forEach(function(username) {
+      string += username + " | "
+    })
+    return string.substring(0, string.length - 3)
   }
 
 })
