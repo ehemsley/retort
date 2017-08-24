@@ -112,11 +112,13 @@ export default EmojiPicker.extend({
       } else {
         if (windowWidth < 485) {
           desktopModalePositioning();
+          /*
         } else {
           var previewInputOffset = Ember.$(".d-editor-input").offset() || { left: 0 };
           var _replyControlOffset = Ember.$("#reply-control").offset() || { left: 0 };
           var _left = previewInputOffset.left - _replyControlOffset.left;
           desktopPositioning({ left: _left, bottom: Ember.$("#reply-control").height() - 48 });
+          */
         }
       }
     }
