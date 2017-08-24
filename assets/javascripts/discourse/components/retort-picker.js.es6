@@ -31,6 +31,8 @@ export default EmojiPicker.extend({
   _positionPicker: function _positionPicker() {
     var _this16 = this;
 
+    const $picker = $('.emoji-picker')
+
     if (!this.get("active")) {
       return;
     }
