@@ -33,18 +33,27 @@ export default EmojiPicker.extend({
 
     let windowWidth = this.$(window).width();
 
+    let $picker = this.$('emoji-picker');
+
     this._super();
 
+    const desktopModalePositioning = options => {
+      let attributes = {
+       width: Math.min(windowWidth, 400) - 12,
+       marginLeft: -(Math.min(windowWidth, 400)/2) + 6,
+       marginTop: -130,
+       left: "50%",
+       bottom: "",
+       top: "50%",
+       display: "flex"
+      };
+
+      this.$(".emoji-picker-modal").addClass("fadeIn");
+      $picker.css(_.merge(attributes, options));
+   };
+
     if(!this.site.isMobileDevice && !this._isReplyControlExpanded()) {
-      if (windowWidth >= 485) {
-        /*
-        var previewInputOffset = Ember.$(".d-editor-input").offset() || { left: 0 };
-        var _replyControlOffset = Ember.$("#reply-control").offset() || { left: 0 };
-        var _left = previewInputOffset.left - _replyControlOffset.left;
-        */
-        var _left = "50%";
-        desktopPositioning({ left: _left, bottom: Ember.$("#reply-control").height() - 48 });
-      }
+      desktopModalePositioning();
     }
   }
 })
