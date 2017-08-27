@@ -35,7 +35,7 @@ export default EmojiPicker.extend({
 
     this._super();
 
-    if(!this.site.isMobileDevice and !this._isReplyControlExpanded()) {
+    if(!this.site.isMobileDevice && !this._isReplyControlExpanded()) {
       if (windowWidth >= 485) {
         /*
         var previewInputOffset = Ember.$(".d-editor-input").offset() || { left: 0 };
