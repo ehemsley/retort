@@ -44,7 +44,7 @@ export default EmojiPicker.extend({
         display: "flex"
       };
 
-      _this16.$(".emoji-picker-modal").addClass("fadeIn");
+      this.$(".emoji-picker-modal").addClass("fadeIn");
       $picker.css(_.merge(attributes, options));
     };
 
@@ -59,7 +59,7 @@ export default EmojiPicker.extend({
         display: "flex"
       };
 
-      _this16.$(".emoji-picker-modal").addClass("fadeIn");
+      this.$(".emoji-picker-modal").addClass("fadeIn");
       $picker.css(_.merge(attributes, options));
     };
 
@@ -75,7 +75,7 @@ export default EmojiPicker.extend({
         display: "flex"
       };
 
-      _this16.$(".emoji-picker-modal").removeClass("fadeIn");
+      this.$(".emoji-picker-modal").removeClass("fadeIn");
       $picker.css(_.merge(attributes, options));
     };
 
