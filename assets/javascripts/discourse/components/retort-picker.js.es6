@@ -28,7 +28,7 @@ export default EmojiPicker.extend({
   },
 
   //override to fix bug where emoji picker is broken if reply window is not open
-  _positionPicker: function _positionPicker() {
+  _positionPicker() {
     var _this16 = this;
 
     const $picker = $('.emoji-picker')
