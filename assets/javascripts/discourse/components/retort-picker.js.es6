@@ -33,96 +33,18 @@ export default EmojiPicker.extend({
 
     let windowWidth = this.$(window).width();
 
-    const desktopModalePositioning = options => {
-      let attributes = {
-       width: Math.min(windowWidth, 400) - 12,
-       marginLeft: -(Math.min(windowWidth, 400)/2) + 6,
-       marginTop: -130,
-       left: "50%",
-       bottom: "",
-       top: "50%",
-       display: "flex"
-      };
+    this._super();
 
-      this.$(".emoji-picker-modal").addClass("fadeIn");
-      $picker.css(_.merge(attributes, options));
-    };
-
-    const mobilePositioning = options => {
-      let attributes = {
-       width: windowWidth - 12,
-       marginLeft: 5,
-       marginTop: -130,
-       left: 0,
-       bottom: "",
-       top: "50%",
-       display: "flex"
-      };
-
-      this.$(".emoji-picker-modal").addClass("fadeIn");
-      $picker.css(_.merge(attributes, options));
-    };
-
-    const desktopPositioning = options => {
-      let attributes = {
-        width: windowWidth < 485 ? windowWidth - 12 : 400,
-        marginLeft: "",
-        marginTop: "",
-        right: "",
-        left: "",
-        bottom: 32,
-        top: "",
-        display:
-        "flex"
-      };
-
-      this.$(".emoji-picker-modal").removeClass("fadeIn");
-      $picker.css(_.merge(attributes, options));
-    };
-
-    if(Ember.testing || this.get("automaticPositioning") === false) {
-      desktopPositioning();
-      return;
-    }
-
-    if(this.site.isMobileDevice) {
-      mobilePositioning();
-    } else {
-      if(this._isReplyControlExpanded()) {
-        let $editorWrapper = Ember.$(".d-editor-preview-wrapper");
-        if(($editorWrapper.is(":visible") && $editorWrapper.width() < 400) || windowWidth < 485) {
-          desktopModalePositioning();
-        } else {
-          if($editorWrapper.is(":visible")) {
-            let previewOffset = Ember.$(".d-editor-preview-wrapper").offset();
-            let replyControlOffset = Ember.$("#reply-control").offset();
-            let left = previewOffset.left - replyControlOffset.left;
-            desktopPositioning({left});
-          } else {
-            desktopPositioning({
-              right: (Ember.$("#reply-control").width() - Ember.$(".d-editor-container").width()) / 2
-            });
-          }
-        }
-      } else {
-        if (windowWidth < 485) {
-          desktopModalePositioning();
-        } else {
-          /*
-          var previewInputOffset = Ember.$(".d-editor-input").offset() || { left: 0 };
-          var _replyControlOffset = Ember.$("#reply-control").offset() || { left: 0 };
-          var _left = previewInputOffset.left - _replyControlOffset.left;
-          */
-          var _left = "50%";
-          desktopPositioning({ left: _left, bottom: Ember.$("#reply-control").height() - 48 });
-        }
+    if(!this.site.isMobileDevice and !this._isReplyControlExpanded()) {
+      if (windowWidth >= 485) {
+        /*
+        var previewInputOffset = Ember.$(".d-editor-input").offset() || { left: 0 };
+        var _replyControlOffset = Ember.$("#reply-control").offset() || { left: 0 };
+        var _left = previewInputOffset.left - _replyControlOffset.left;
+        */
+        var _left = "50%";
+        desktopPositioning({ left: _left, bottom: Ember.$("#reply-control").height() - 48 });
       }
     }
-
-    const infoMaxWidth = $picker.width() -
-                         $picker.find(".categories-column").width() -
-                         $picker.find(".diversity-picker").width() -
-                         32;
-    $picker.find(".info").css("max-width", infoMaxWidth);
   }
 })
