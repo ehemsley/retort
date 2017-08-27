@@ -29,15 +29,9 @@ export default EmojiPicker.extend({
 
   //override to fix bug where emoji picker is broken if reply window is not open
   _positionPicker() {
-    var _this16 = this;
+    if(!this.get("active")) { return; }
 
-    const $picker = $('.emoji-picker')
-
-    if (!this.get("active")) {
-      return;
-    }
-
-    var windowWidth = this.$(window).width();
+    let windowWidth = this.$(window).width();
 
     var desktopModalePositioning = function desktopModalePositioning(options) {
       var attributes = {
