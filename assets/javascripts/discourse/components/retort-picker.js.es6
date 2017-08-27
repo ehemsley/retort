@@ -33,38 +33,38 @@ export default EmojiPicker.extend({
 
     let windowWidth = this.$(window).width();
 
-    var desktopModalePositioning = function desktopModalePositioning(options) {
-      var attributes = {
-        width: Math.min(windowWidth, 400) - 12,
-        marginLeft: -(Math.min(windowWidth, 400) / 2) + 6,
-        marginTop: -130,
-        left: "50%",
-        bottom: "",
-        top: "50%",
-        display: "flex"
+    const desktopModalePositioning = options => {
+      let attributes = {
+       width: Math.min(windowWidth, 400) - 12,
+       marginLeft: -(Math.min(windowWidth, 400)/2) + 6,
+       marginTop: -130,
+       left: "50%",
+       bottom: "",
+       top: "50%",
+       display: "flex"
       };
 
       this.$(".emoji-picker-modal").addClass("fadeIn");
       $picker.css(_.merge(attributes, options));
     };
 
-    var mobilePositioning = function mobilePositioning(options) {
-      var attributes = {
-        width: windowWidth - 12,
-        marginLeft: 5,
-        marginTop: -130,
-        left: 0,
-        bottom: "",
-        top: "50%",
-        display: "flex"
+    const mobilePositioning = options => {
+      let attributes = {
+       width: windowWidth - 12,
+       marginLeft: 5,
+       marginTop: -130,
+       left: 0,
+       bottom: "",
+       top: "50%",
+       display: "flex"
       };
 
       this.$(".emoji-picker-modal").addClass("fadeIn");
       $picker.css(_.merge(attributes, options));
     };
 
-    var desktopPositioning = function desktopPositioning(options) {
-      var attributes = {
+    const desktopPositioning = options => {
+      let attributes = {
         width: windowWidth < 485 ? windowWidth - 12 : 400,
         marginLeft: "",
         marginTop: "",
@@ -72,31 +72,32 @@ export default EmojiPicker.extend({
         left: "",
         bottom: 32,
         top: "",
-        display: "flex"
+        display:
+        "flex"
       };
 
       this.$(".emoji-picker-modal").removeClass("fadeIn");
       $picker.css(_.merge(attributes, options));
     };
 
-    if (Ember.testing) {
+    if(Ember.testing || this.get("automaticPositioning") === false) {
       desktopPositioning();
       return;
     }
 
-    if (this.site.isMobileDevice) {
+    if(this.site.isMobileDevice) {
       mobilePositioning();
     } else {
-      if (this._isReplyControlExpanded()) {
-        var $editorWrapper = Ember.$(".d-editor-preview-wrapper");
-        if ($editorWrapper.is(":visible") && $editorWrapper.width() < 400 || windowWidth < 485) {
+      if(this._isReplyControlExpanded()) {
+        let $editorWrapper = Ember.$(".d-editor-preview-wrapper");
+        if(($editorWrapper.is(":visible") && $editorWrapper.width() < 400) || windowWidth < 485) {
           desktopModalePositioning();
         } else {
-          if ($editorWrapper.is(":visible")) {
-            var previewOffset = Ember.$(".d-editor-preview-wrapper").offset();
-            var replyControlOffset = Ember.$("#reply-control").offset();
-            var left = previewOffset.left - replyControlOffset.left;
-            desktopPositioning({ left: left });
+          if($editorWrapper.is(":visible")) {
+            let previewOffset = Ember.$(".d-editor-preview-wrapper").offset();
+            let replyControlOffset = Ember.$("#reply-control").offset();
+            let left = previewOffset.left - replyControlOffset.left;
+            desktopPositioning({left});
           } else {
             desktopPositioning({
               right: (Ember.$("#reply-control").width() - Ember.$(".d-editor-container").width()) / 2
@@ -118,7 +119,10 @@ export default EmojiPicker.extend({
       }
     }
 
-    var infoMaxWidth = $picker.width() - $picker.find(".categories-column").width() - $picker.find(".diversity-picker").width() - 32;
+    const infoMaxWidth = $picker.width() -
+                         $picker.find(".categories-column").width() -
+                         $picker.find(".diversity-picker").width() -
+                         32;
     $picker.find(".info").css("max-width", infoMaxWidth);
   }
 })
